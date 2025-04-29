@@ -1,0 +1,140 @@
+.subscribe_container {
+    height: 100%;
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .subscribe_modal {
+    width: 400px;
+    height: auto;
+    background-color: #1761ab;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+  
+  .login-form {
+    color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+  }
+  
+  .login-form label {
+    color: white;
+    font-size: 0.9rem;
+    font-weight:600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .login-form h3 {
+    text-align: center;
+    color: #fafafa; /* כחול */
+    margin-bottom: 1rem;
+    margin-top: 0;
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 0.3rem;
+    border: 1px solid #3498db; /* כחול */
+    margin-bottom: 0.9rem;
+    border-radius: 5px;
+    background-color: rgb(240, 251, 252);
+    color: black;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+
+  }
+  .input-container{
+    position: relative;
+  }
+  
+  .login-form input:focus {
+    outline: none;
+    border-color: #2980b9; /* כחול כהה יותר */
+  }
+  
+  .login-form button {
+    display: block;
+    padding: 0.75rem;
+    background: #3498db; /* כחול */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-form button:hover {
+    background-color: #2980b9;
+  }
+  
+  .login-form button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .login-form__nav {
+
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .login-form__nav div {
+    font-size: 0.75rem;
+    align-self: flex-end;
+    text-decoration: underline;
+    color: #3498db; /* כחול */
+  }
+  
+  .invalid-message {
+    width: 100%;
+    color: black;
+    font-size: 0.7rem;
+    margin-top: 0;
+    transition: all 0.3s ease;
+    position: absolute;
+    bottom: -21px;
+
+  }
+  
+    
+  .invalid-message-name {
+    width: 100%;
+    color: black;
+    font-size: 0.7rem;
+    margin-top: 0;
+    transition: all 0.3s ease;
+    position: absolute;
+    bottom: 0;
+
+  }
+  .invalid-message.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .subscribe_modal {
+    max-height: 80%;
+    overflow-y: auto;
+  }
+
+  .name-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    width: 100%;
+  
+  }

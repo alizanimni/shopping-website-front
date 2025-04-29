@@ -1,0 +1,62 @@
+.favorites-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .favorite-item-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+.favorite-item-photo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+.favorite-item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 15px;
+  }
+  
+.favorite-item-info h3 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .price {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 6px 0;
+  }
+  
+  button {
+    background-color: #1976d2;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  button:hover {
+    background-color: #145ea8;
+  }
+
+  .trash-icon {
+    font-size: 20px;
+    cursor: pointer;
+    color: white; /* צבע אדום לפח אשפה */
+}
