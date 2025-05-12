@@ -37,7 +37,7 @@ function PayModal() {
       isValidName;
 
       const onSubmit = async (event) => {
-        event.preventDefault(); // חשוב בטופס
+        event.preventDefault();
       
         try {
           const response = await closeOrder();
@@ -108,8 +108,7 @@ function PayModal() {
               </label>
   
               <div className="paymentButton">
-                {/* <button type="submit" disabled={!isFormValid}> */}
-                <button type="submit">
+                <button type="submit" disabled={!isFormValid}>
                   Pay
                 </button>
               </div>

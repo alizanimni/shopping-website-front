@@ -131,7 +131,6 @@ return(
   
         <p className="price">{Number.isInteger(item.price) ? item.price : item.price.toFixed(2)}</p>
         <div className="quantity">left only: {item.item_quantity}</div>
-        {/* <button onClick={()=>{ currentUser==null? navigate("/login") : addItem(item.id,1,item.price)}}>Add +</button> */}
 
         <div className="quantity-controls-home-page">
         <button

@@ -10,20 +10,12 @@ export const ItemsProvider = ({ children }) => {
     const savedItems = localStorage.getItem('items');
    console.log(JSON.parse(savedItems));
    localStorage.removeItem("itemsAdjusted")
-    // if (savedItems) {
-    //   console.log("saved");
-      
-    //   const parsedItems = JSON.parse(savedItems);
-    //   setItems(parsedItems);
-      
-    // } else {
       getItems()
         .then((data) => {
           setItems(data);
           localStorage.setItem('items', JSON.stringify(data));
         })
         .catch(err => console.log(err));
-    // }
   }, []);
 
   const uptadeItemsSpair=(itemId,add)=>{

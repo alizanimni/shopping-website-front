@@ -85,7 +85,7 @@ const handleIncrease= (itemId,quantity,price)=>{
     <div className="cart-summary">
   <h2>Order Summary</h2>
   <p>Total: <strong>{cart.total_price.toFixed(2)} ₪</strong></p>
-  <button className="checkout-button" onClick={()=>navigate('/payment')}>Checkout</button>
+  <button className="checkout-button" onClick={()=>navigate('/payment')} disabled={cart.total_price===0}>Checkout</button>
 </div>
   </div>
   )

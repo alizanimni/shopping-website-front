@@ -1,8 +1,7 @@
 .not_found_page{
     width: 100%;
     height: calc(100vh - 4rem);
-    margin-top: 4rem;
-    color: white;
+    color: black;
     display: flex;
     align-items: center;
     justify-content: center;
