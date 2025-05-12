@@ -8,29 +8,26 @@ export const UserProvider = ({ children }) => {
   const [cart, setCart] = useState({ itemsOnOrder: [], total_price: 0 });
   const [favorites, setFavorites] = useState([]);
   const [token,setToken] = useState(localStorage.getItem('token'))
-
-  
   const getUserData = async () => {
     if (token) {
       console.log("shalom");
       
       try {
         const { data: userData } = await fetchUser();
-        console.log(userData);
-        
         setCurrentUser(userData);
         localStorage.setItem('user',JSON.stringify(userData))
-      
+        console.log(userData);
+        
         const [cartData, favoritesData] = await Promise.all([
           fetchCart(),
           fetchFavorites()
         ]);
-        console.log(cartData);
+
         if(cartData.data===""){
          localStorage.setItem('cart',JSON.stringify(cart))      
         }else{
         setCart(cartData.data);          
-        localStorage.setItem('cart',JSON.stringify(cartData.data))        
+        localStorage.setItem('cart',JSON.stringify(cartData.data))   
         }
 
 
@@ -39,6 +36,7 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem('favoritesItem',JSON.stringify(favoritesData.data))
       } catch (error) {
         console.error("Error fetching user data", error);
+        logout()     
       }
     }
   };
@@ -48,28 +46,26 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem('cart')
     localStorage.removeItem('favoritesItem')
     localStorage.removeItem('user')
+    localStorage.removeItem('itemsAdjusted')
     setCurrentUser(null)
-    setCart([])
+    setCart({ itemsOnOrder: [], total_price: 0 })
     setFavorites([])
     setToken("")
   }
 
   const loginUser = async (username, password) => {
-    console.log("login context");
-    
-    try {
-      const token = await login(username, password);
-      console.log(token);
-      
-      localStorage.setItem('token', JSON.stringify(token));
-      setToken(token);
-      await getUserData(); 
-    } catch (error) {
-      console.error("Login failed", error);
-    }
+
+    const token = await login(username, password);
+  
+    localStorage.setItem('token', JSON.stringify(token));
+    setToken(token);
+  
+    await getUserData();
   };
 
   const updateCart = (newItemId, price) => {
+    console.log("upDate cart");
+    
     setCart(prevCart => {
       const existingItem = prevCart.itemsOnOrder.find(item => item.itemId === newItemId);
   
@@ -99,24 +95,50 @@ export const UserProvider = ({ children }) => {
     });
   };
 
-  const removeItemFromCart = async (newItemId,price) => {
-    setCart(prevCart => {
-           const newCart =  prevCart.map(item=>
-            item.itemId === newItemId
-            ? { ...item, quantity: item.quantity + 1 ,price: item.price+price}
-            : item
-           )
-           localStorage.setItem('cart',JSON.stringify(newCart))
-           return newCart
+  const cleanCart = () => {
+    setCart({ itemsOnOrder: [], total_price: 0 })
+    localStorage.setItem('cart',JSON.stringify(cart))    
+  }
 
-       
-          });
+  const removeItemFromCartLocal = async (newItemId,quantity, price) => {
+    setCart(prevCart => {
+      const updatedItems = prevCart.itemsOnOrder.map(item =>
+        item.itemId === newItemId
+          ? { ...item, quantity: item.quantity - quantity, price: item.price - price }
+          : item
+      );
+  
+      const newItems = updatedItems.filter(item => item.quantity > 0);
+  
+      const newTotal = prevCart.total_price - price;
+  
+      const updatedCart = {
+        ...prevCart,
+        itemsOnOrder: newItems,
+        total_price: newTotal
+      };
+  
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+      return updatedCart;
+    });
   };
 
   const updateFavorites = (newFavorite) => {
     
     setFavorites(prevFavorites => {
       const newFavorites = [...prevFavorites, newFavorite];
+      localStorage.setItem('favoritesItem', JSON.stringify(newFavorites));
+      return newFavorites;
+    });
+  };
+
+  const removeFromFavorites = (itemId) => {
+    console.log(itemId);
+  
+    setFavorites(prevFavorites => {
+      const newFavorites = prevFavorites.filter(item => item !== itemId);
+      console.log(newFavorites);
+  
       localStorage.setItem('favoritesItem', JSON.stringify(newFavorites));
       return newFavorites;
     });
@@ -130,7 +152,7 @@ export const UserProvider = ({ children }) => {
   }, [token]);
 
   return (
-    <UserContext.Provider value={{ currentUser, cart, favorites, loginUser , updateFavorites , updateCart}}>
+    <UserContext.Provider value={{ currentUser, cart, favorites, loginUser , updateFavorites , updateCart, removeItemFromCartLocal,removeFromFavorites,logout,cleanCart, getUserData}}>
 
       {children}
     </UserContext.Provider>

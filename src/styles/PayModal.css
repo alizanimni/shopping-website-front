@@ -1,0 +1,102 @@
+.pay_container {
+    width: 100%;
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pay_modal {
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 400px;
+    height: 530px;
+    background-color: white;
+    padding: 1rem;
+    color: black;
+}
+
+.pay_modal label {
+    display: block;
+}
+
+.pay-form label {
+    font-size: 0.9rem;
+}
+
+.pay-form h3 {
+    text-align: center;
+    color: #007BFF; /* החליפי ל-$myBlue שלך */
+}
+
+.pay-form input {
+    display: flex;
+    width: 90%;
+    padding: 0.5rem;
+    border: 1px solid #007BFF; /* החליפי ל-$myBlue שלך */
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.pay-form input:focus {
+    outline: none;
+}
+
+.pay-form button {
+
+    padding: 0.5rem 1rem;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.paymentButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+.pay-form button:hover {
+    background-color: rgb(36, 105, 122);
+}
+
+.pay-form button:active {
+    background-color: rgb(29, 88, 103);
+}
+.pay-form button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    pointer-events: none; 
+    transition: none;
+}
+
+.visa_div img {
+    width: 50px;
+    height: 40px;
+    margin: 5px 20px;
+}
+
+.date {
+    margin: 1rem 0;
+}
+
+.date label {
+    display: inline;
+}
+
+.cvv input {
+    width: 50px;
+}
+
+.amount {
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.x_pay_button {
+    display: flex;
+    justify-content: right;
+}

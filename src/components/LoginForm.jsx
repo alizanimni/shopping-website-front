@@ -11,23 +11,26 @@ const LoginForm = () => {
 
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [isUserNameinputValid, setIsUserNameInputValid] = useState(false);
-	const [isPasswordInputValid, setIsPasswordInputValid] = useState(false);
+	const [isUserNameinputValid, setIsUserNameInputValid] = useState(true);
+	const [isPasswordInputValid, setIsPasswordInputValid] = useState(true);
 	const [errorMessage, setErrorMessage] = useState("");
     const {loginUser} = useContext(UserContext);
-
 	const onBlurUsernameInput = (event) => {
     const theUsername = event.target.value.trim();
     console.log(theUsername);
-    
-     if(theUsername.length>0){
+	if(errorMessage!=="") setErrorMessage("")
+     if(theUsername.length>1){
       setIsUserNameInputValid(true);
       setUsername(theUsername)
-     }
+     }else{
+		setIsUserNameInputValid(false);
+	 }
+
 	};
 
 
 	const onBlurPasswordInput = (event) => {
+		if(errorMessage!=="") setErrorMessage("")
 		const thePassword = event.target.value.trim();
 		setPassword(thePassword === "" ? "" : thePassword);
 		setIsPasswordInputValid(thePassword !== "");
@@ -42,8 +45,12 @@ const LoginForm = () => {
 		  await loginUser(username, password);
 		  navigate('/');
 		} catch (error) {
+		console.log(error.response.data);
+		if(error.response.data==="Incorrect Username Or Password")
+
+			setErrorMessage("Incorrect username or password.")
+		
 		  console.error('Login failed', error);
-		  alert('ההתחברות נכשלה');
 		}
 	  };
     
@@ -62,18 +69,17 @@ const LoginForm = () => {
             <div className="login_container drop-shadow-lg">
         
 			<h2>Login</h2>
-			{errorMessage !== "" && <div className="error-message">{ errorMessage }</div> }
 
 
       <form onSubmit={ onSubmit } className="login_form">
 				<input placeholder="Username" onBlur={ onBlurUsernameInput } />
-				{ !isUserNameinputValid && <div className="invalid-message">You must enter your email.</div> }
+				{ !isUserNameinputValid && <div className="invalid-message-login">You must enter your username.</div> }
 
 				<input type="password" placeholder="Password" onBlur={ onBlurPasswordInput } />
-				{ !isPasswordInputValid && <div className="invalid-message">You must enter your password.</div> }
-
+				{ !isPasswordInputValid && <div className="invalid-message-login">You must enter your password.</div> }
+                { errorMessage!== "" && <div className='error-message-login'>{errorMessage}</div>}
 				<div className="login_submit">
-					<button type="submit" disabled={!isPasswordInputValid||!isUserNameinputValid}>Submit</button>
+					<button type="submit" disabled={!isPasswordInputValid||!isUserNameinputValid && password===""||username===""}>Submit</button>
 				</div>
           <div>New here?					<span className="create-account-button" onClick={onClickSignUp}>Craete account</span></div>                
 			</form>

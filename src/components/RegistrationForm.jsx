@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import validator from 'validator';
 import '../styles/RegistrationForm.css';
 import { subscribeToSite } from '../services/ApiService';
 import { useNavigate } from 'react-router-dom';
-const RegistrationForm = (props) => {
-    // const user=getUserFromCookie()
+import UserContext from '../context/UserContext';
+const RegistrationForm = () => {
     const [inputClasses, setInputClasses] = useState(["", "", "", "", "","","",""]);
     const [invalidMessages, setInvalidMessages] = useState(["", "", "", "", "","","",""]);
     const [validInputs, setValidInputs] = useState([false, false, false, false, false,false,false,false]);
@@ -25,19 +25,6 @@ const RegistrationForm = (props) => {
     const isFormInvalid = () => {
         return validInputs.includes(false);   
     };
-    // useEffect(() => {
-
-    //     if(user){
-    //         setEmail(user.email)
-    //         setPassword(user.password)
-    //         setPasswordAgain(user.password)
-    //         setadress(user.adress)
-    //         setUsername(user.name)
-    //     }
-    //     return () => {
-    
-    //     };
-    //   },[]);
 
     const validateInput = (
         value,
@@ -206,67 +193,24 @@ const RegistrationForm = (props) => {
             email,
             password
         });
-        // if(user){
-        //     editUserDetails({name:username,email,adress ,password}).
-        //     then(() => getUser(email,password)).
-        //     then((userData)=>saveUserOnCookie(userData.data)
-        //             ).catch((err) => {
-        //             if (err.message === "EMAIL_EXISTS") {
-        //                 setInputClasses(["", "", "input-invalid", "", ""]);
-        //                 setInvalidMessages(["", "", "Mail exist.", "", ""]);
-        //                 setValidInputs([true, true, false, true, true]);
-        //             }
-        //             })
-        //                navigate("/");   
-        // }else{
             subscribeToSite(firstName,lastName,email,phone,adress,username, password).
-        then().catch((err) => {
-                    console.log(err.message);
-                if (err.message ==="Email already exists") {
-                    console.log("succes");
-                    // setInputClasses(["", "", "Mail exist", "", "","","",""]);
+        then(()=>{navigate("/login")}).catch((err) => {
+                    console.log(err.response.data);
+                if (err.response.data ==="Email already exists") {
                     setEmail("");
                     setInvalidMessages(["", "", "Mail alrady exist", "", "","","",""]);
                     setValidInputs([true, true, false, true, true, true, true,true]);
-                }else if(err.message ==="Username already exists"){
+                    alert("Mail alrady exist in our system")
+                }else if(err.response.data ==="Username already exists"){
                     setUsername("");
-                    setValidInputs([true, true, true, true, false, true, true,true]);
+                    setInvalidMessages(["", "", "", "", "","Username alrady exist","",""]);
+                    setValidInputs([true, true, true, true, true, false, true,true]);
+                    alert("Username alrady exist please change")
                 }
-                else{
-                  //  props.setUser()
-                   navigate("/login");                        
-                }
-                })
-// () => getUser(email,password)).
-// then((userData)=>saveUserOnCookie(userData.data)
-                
-                
-                        // if (response.data === "Email already exists") {
-                        //     setInvalidMessages(prevMessages => {
-                        //         const newMessages = [...prevMessages];
-                        //         newMessages[2] = "This email is already registered";
-                        //         return newMessages;
-                        //     });
-                        // } else if (response.data === "Username already exists") {
-                        //     setInvalidMessages(prevMessages => {
-                        //         const newMessages = [...prevMessages];
-                        //         newMessages[5] = "This username is already taken";
-                        //         return newMessages;
-                        //     });
-                        // } else if (response.data === "User registered successfully") {
-                        //     // אם ההרשמה הצליחה, נווט לדף אחר או עשה משהו אחר
-                        //     console.log("Registration successful");
-                        // }
-                        
-                // };
-    // };            
+                })          
         }
 
 
-
-    // const onClickLogin = () => {
-    //     props.setIsLoginMode(true);
-    // };
 
     return (
         <div className="subscribe_container">
@@ -325,8 +269,6 @@ const RegistrationForm = (props) => {
 
                 <div className="login-form__nav">
                     <button type='submit' disabled={ isFormInvalid() }>Sign up</button>
-                  {/* {!user?<button type="submit" disabled={ isFormInvalid() }>Submit</button> : <button type="submit">Edit</button>}  
-                 {!user &&   <div onClick={onClickLogin}>Login</div>} */}
                 </div>
             </form>
         </div>

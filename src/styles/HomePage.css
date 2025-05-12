@@ -65,7 +65,7 @@
   .heart-icon{
     font-size: 18px;
     cursor: pointer;
-
+    
   }
   .icon-circle{
     display: flex;
@@ -84,4 +84,14 @@
   }
   .icon-circle:active{
     background-color: rgb(223, 233, 236);
+  }
+  .red-heart-icon{
+    color: rgb(204, 6, 6);
+    font-size: 19px;
+    cursor: pointer;
+  }
+  .quantity-controls-home-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }

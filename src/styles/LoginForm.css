@@ -66,12 +66,11 @@
     cursor: not-allowed;
   }
   
-  .error-message {
-    color: black;
-    background: rgb(40, 39, 39);
-    border-radius: 5px;
-    padding: 0.5rem;
-    text-align: center;
+  .error-message-login {
+    color: rgb(197, 6, 6);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.3rem;
   }
   
   .login_submit {
@@ -92,10 +91,10 @@
     text-decoration: underline;
   }
   
-  .invalid-message {
+  .invalid-message-login {
     color: black;
     font-size: 0.8rem;
-    margin-top: 0.3rem;
+ 
   }
 
   .create-account-button{

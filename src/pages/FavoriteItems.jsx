@@ -3,15 +3,21 @@ import UserContext from '../context/UserContext'
 import { useItems } from '../context/ItemContext';
 import { FaTrash } from 'react-icons/fa'; 
 import '../styles/FavoritesItems.css'; 
+import { removeItemFromFavoriteDB } from '../services/ApiService';
 
 function FavoriteItems() {
-    const {favorites}= useContext(UserContext);
+    const {favorites ,removeFromFavorites}= useContext(UserContext);
     const {items}=useItems();
     console.log(favorites);
     
     console.log(items);
     
     const favoriteItems = items.filter(item => favorites.includes(item.id));
+
+    const handleRemoveFromFavorites = (itemId) =>{
+        removeItemFromFavoriteDB(itemId)
+        removeFromFavorites(itemId)
+    }
 
     return (
         <div>
@@ -27,8 +33,7 @@ function FavoriteItems() {
 
 
                           </div>                       
-                            {/* <button onClick={() => handleRemoveFromFavorites(item.id)}> */}
-                            <button>
+                            <button onClick={() => handleRemoveFromFavorites(item.id)}>
                                 <FaTrash className="trash-icon" /></button>
    
                     </div>

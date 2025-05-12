@@ -6,8 +6,8 @@
   }
   
   .cart-item-card {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 65% 30% 5%;
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 12px;
@@ -91,4 +91,25 @@
 
 .checkout-button:hover {
   background-color: #45a049;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.quantity-button {
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.quantity-number {
+  min-width: 20px;
+  text-align: center;
 }

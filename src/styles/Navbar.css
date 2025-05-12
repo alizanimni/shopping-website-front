@@ -1,7 +1,6 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
     background-color: #1976d2;
     color: white;
   
@@ -13,21 +12,29 @@
     z-index: 1000;
   }
   
-  .navbar-left,
-  .navbar-right {
+  .navbar-left{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: right;
+  }
+  .navbar-right{
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    justify-content: left;
   }
   
   .navbar-center {
-    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
   }
   
   .logo {
     margin: 0;
     font-size: 24px;
+    cursor: pointer;
   }
   
   .icon {

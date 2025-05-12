@@ -79,7 +79,18 @@ export const addItemToFavorite=async(itemId)=>{
     
 }
 
+  export const removeItemFromFavoriteDB = async(itemId)=>{
+    const response = await axios.delete(
+        `${API_URL}/item/favorites/${itemId}`,
+       { headers: getAuthHeaders() }
+    );
+    return response.data;
+  }
+
+
 export const addItemToCart = async (itemId, quantity, price) => {
+    console.log(itemId, quantity, price);
+    
     const response = await axios.post(`${API_URL}/cart/add-item`, 
       { itemId, quantity, price }, 
       { headers: { 
@@ -91,15 +102,54 @@ export const addItemToCart = async (itemId, quantity, price) => {
     return response.data;
   };
 
-  export const removeItemFromCart = async(itemId, quantity, price) => {
-    const response = await axios.post(`${API_URL}/cart/decrease-item`, 
-        { itemId, quantity, price }, 
-        { headers: { 
-            'Content-Type': 'application/json', 
-            ...getAuthHeaders() 
-          } 
+  export const removeItemFromCart = async (itemId, quantity, price) => {
+    console.log(price);
+    
+    console.log(quantity);
+    
+    const response = await axios.delete(`${API_URL}/cart/decrease-item`, {
+      data: { itemId, quantity, price },
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders()
+      }
+    });
+    return response.data;
+  };
+
+  export const closeOrder = () => {
+    return axios.put(`${API_URL}/cart`, null, {
+      headers: getAuthHeaders()
+    });
+  };
+
+  export const deleteUser = async()=>{
+    const response = await axios.delete(
+        `${API_URL}/users`,
+       { headers: getAuthHeaders() }
+    );
+    return response.data;
+  }
+
+  export const updateUserDetails=async(firstName,lastName,email,address,phone)=>{
+    const response = await axios.put(`${API_URL}/users`, {
+        "first_name": firstName,
+         "last_name": lastName,
+         email,
+         address,
+         phone       
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
         }
-      );
-      return response.data;
-    };
+    });
+    console.log(response.data);
+    
+    return response.data;
+  }
+
+  export const fetchAllClosedOrders=()=>{
+    return axios.get(`${API_URL}/cart/all`, { headers: getAuthHeaders() })
+  }
   
